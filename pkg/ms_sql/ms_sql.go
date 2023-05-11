@@ -2,6 +2,14 @@ package mssql
 
 import "database/sql"
 
-func OpenMSSql() (*sql.DB, error) {
-	return nil, nil
+func OpenMSSql(driver string, dsn string) (*sql.DB, error) {
+	db, err := sql.Open(driver, dsn)
+	if err != nil {
+		return nil, err
+	}
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+
+	return db, nil
 }

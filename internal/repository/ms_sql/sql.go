@@ -1,6 +1,11 @@
 package sql
 
-import "database/sql"
+import (
+	"context"
+	"database/sql"
+
+	"github.com/begenov/tesk-kmf/internal/model"
+)
 
 type Database struct {
 	db *sql.DB
@@ -9,3 +14,11 @@ type Database struct {
 func NewDatabse(db *sql.DB) *Database {
 	return &Database{db: db}
 }
+
+func (db *Database) CreateCurrency(ctx context.Context, currency model.Currency) error {
+	return nil
+}
+
+// func CurrencyBYDate(ctx context.Context, date ti ) {
+
+// }
