@@ -10,6 +10,8 @@ import (
 
 type BankDB interface {
 	CreateCurrency(ctx context.Context, currency model.Currency) error
+	CurrencyByDateAndCode(ctx context.Context, date string, code string) ([]model.Currency, error)
+	CurrencyByDate(ctx context.Context, date string) ([]model.Currency, error)
 }
 
 type Repository struct {
