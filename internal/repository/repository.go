@@ -13,11 +13,11 @@ type BankDB interface {
 }
 
 type Repository struct {
-	db BankDB
+	BankDB BankDB
 }
 
 func NewRepository(db *sql.DB) *Repository {
 	return &Repository{
-		db: mssql.NewDatabse(db),
+		BankDB: mssql.NewDatabse(db),
 	}
 }

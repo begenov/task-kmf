@@ -18,7 +18,3 @@ func NewDatabse(db *sql.DB) *Database {
 func (db *Database) CreateCurrency(ctx context.Context, currency model.Currency) error {
 	return nil
 }
-
-// func CurrencyBYDate(ctx context.Context, date ti ) {
-
-// }
