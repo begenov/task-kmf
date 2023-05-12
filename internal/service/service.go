@@ -9,7 +9,7 @@ import (
 )
 
 type CurrencyIR interface {
-	CreateCurrency(ctx context.Context, rates model.Rates) error
+	CreateCurrency(ctx context.Context, rates model.Rates, caster chan error)
 	GetCurrencyByCode(ctx context.Context, date string, code string) ([]model.Currency, error)
 	GetCurrency(ctx context.Context, data string) ([]model.Currency, error)
 }

@@ -25,21 +25,24 @@ func NewCurrencyService(proivder bankProvider) *CurrencyService {
 	}
 }
 
-func (service *CurrencyService) CreateCurrency(ctx context.Context, rates model.Rates) error {
+func (service *CurrencyService) CreateCurrency(ctx context.Context, rates model.Rates, caster chan error) {
 	var err error
 	rates.DataTime, err = formatDate(rates.Data)
 	if err != nil {
 		log.Println(err)
-		return err
+		caster <- err
+		return
 	}
 
 	err = service.povider.CreateCurrency(ctx, rates)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		caster <- err
+		return
+
 	}
 	fmt.Printf("Data for %s saved\n", rates.Data)
-	return nil
+	caster <- nil
 }
 
 func (service *CurrencyService) GetCurrencyByCode(ctx context.Context, date string, code string) ([]model.Currency, error) {
