@@ -7,6 +7,13 @@ import (
 	"github.com/begenov/tesk-kmf/internal/config"
 )
 
+// @title TASK-KMF
+// @version 1.0
+// @description This is test task
+
+// @host localhost:4000
+// @BasePath /
+
 func main() {
 	cfg, err := config.NewConfig()
 	if err != nil {

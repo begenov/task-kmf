@@ -16,6 +16,14 @@ import (
 
 const api = "https://nationalbank.kz/rss/get_rates.cfm?fdate=%s"
 
+// SaveCurrency godoc
+// @Summary Save currency rates for a specific date
+// @Description Save currency rates for a specific date to local database
+// @Tags currency
+// @Param date path string true "Date in format DD.MM.YYYY"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Router /currency/save/{date} [get]
 func (c *Controller) saveCurrencyDate(w http.ResponseWriter, r *http.Request) {
 	date := mux.Vars(r)["date"]
 
