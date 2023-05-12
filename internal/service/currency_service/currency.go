@@ -19,6 +19,6 @@ func NewCurrencyService(proivder bankProvider) *CurrencyService {
 	}
 }
 
-func (service *CurrencyService) CreateCurrency(ctx context.Context, currency model.Currency) error {
+func (service *CurrencyService) CreateCurrency(ctx context.Context, currency []model.Currency) error {
 	return nil
 }
