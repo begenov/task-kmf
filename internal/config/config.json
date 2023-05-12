@@ -1,0 +1,9 @@
+{
+    "database":{
+        "driver":"postgre",
+        "dsn":"postgresql://kursUser:kursPswd@localhost:5432/test?sslmode=disable"
+    },
+    "server": {
+        "port":":4000"
+    }
+}

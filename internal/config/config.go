@@ -1,21 +1,22 @@
 package config
 
+import (
+	"fmt"
+	"os"
+)
+
 type Config struct {
 	Database database `json:"database"`
 	Server   server   `json:"server"`
 }
 
-/*
-server := "localhost"
-    port := 1433
-    user := "kursUser"
-    password := "kursPswd"
-    database := "TEST"
+const path = "./internal/config/config.json"
 
-    connectionString := fmt.Sprintf("server=%s;port=%d;user id=%s;password=%s;database=%s;", server, port, user, password, database)
-
-*/
-
-func NewConfig() *Config {
-	return &Config{}
+func NewConfig() (*Config, error) {
+	body, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(body)
+	return &Config{}, nil
 }
