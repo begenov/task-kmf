@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/begenov/tesk-kmf/internal/model"
-	mssql "github.com/begenov/tesk-kmf/internal/repository/ms_sql"
+	"github.com/begenov/tesk-kmf/internal/repository/postgresql"
 )
 
 type BankDB interface {
@@ -20,6 +20,6 @@ type Repository struct {
 
 func NewRepository(db *sql.DB) *Repository {
 	return &Repository{
-		BankDB: mssql.NewDatabse(db),
+		BankDB: postgresql.NewDatabse(db),
 	}
 }
