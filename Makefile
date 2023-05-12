@@ -1,11 +1,16 @@
-dockerrun: 
-	docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=kursPswd" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+postgres:
+	sudo docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=kursUser -e POSTGRES_PASSWORD=kursPswd -d postgres:12-alpine
 
-dockerexec:
-	docker exec -it magical_dhawan /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P kursPswd
+createbd: 
+	sudo docker exec -it postgres12 createdb --username=kursUser --owner=root test
+dropdb:
+	sudo docker exec -it postgres12 dropdb  test
 
+migrateup: 
+	migrate -path schema/ -database "postgresql://root:secret@localhost:5432/test?sslmode=disable" -verbose up
 
-docker exec -it sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P kursPswd
+migratedown:
+	migrate -path schema/ -database "postgresql://root:secret@localhost:5432/test?sslmode=disable" -verbose down
 
+.PHONY: postgres createbd dropdb migrateup migratedown
 
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=kursPswd' -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2022-latest
