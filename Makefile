@@ -15,5 +15,9 @@ migrateup:
 migratedown:
 	migrate -path migrations/ -database "postgresql://kursUser:kursPswd@localhost:5432/test?sslmode=disable" -verbose down
 
+
+
 .PHONY: postgres createbd dropdb migrateup migratedown
+
+
 
