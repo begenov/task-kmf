@@ -58,9 +58,9 @@ func (c *Controller) currencyHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 
 	if code != "" {
-		currency, err = c.servicecCurrency.GecCurrencyByCode(context.Background(), data, code)
+		currency, err = c.service.Currency.GetCurrencyByCode(context.Background(), data, code)
 	} else {
-		currency, err = c.servicecCurrency.GetCurrency(context.Background(), data)
+		currency, err = c.service.Currency.GetCurrency(context.Background(), data)
 	}
 
 	if err != nil {

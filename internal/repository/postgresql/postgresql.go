@@ -40,9 +40,54 @@ func (db *PostgreSQL) CreateCurrency(ctx context.Context, rates model.Rates) err
 }
 
 func (db *PostgreSQL) CurrencyByCode(ctx context.Context, date time.Time, code string) ([]model.Currency, error) {
-	return nil, nil
+	query := `
+		SELECT ID, TITLE, CODE, VALUE, A_DATE
+		FROM R_CURRENCY
+		WHERE code = $1 AND a_date = $2
+	`
+
+	rows, err := db.db.QueryContext(ctx, query, code, date)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var currencies []model.Currency
+
+	for rows.Next() {
+		var currency model.Currency
+		err = rows.Scan(&currency.ID, &currency.FullName, &currency.Title, &currency.Description, &currency.ADate)
+		if err != nil {
+			return nil, err
+		}
+		currencies = append(currencies, currency)
+	}
+
+	return currencies, nil
 }
 
 func (db *PostgreSQL) CurrencyByDate(ctx context.Context, date time.Time) ([]model.Currency, error) {
-	return nil, nil
+	query := `
+		SELECT ID, TITLE, CODE, VALUE, A_DATE
+		FROM R_CURRENCY
+		WHERE a_date = $1
+	`
+	rows, err := db.db.QueryContext(ctx, query, date)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var currencies []model.Currency
+
+	for rows.Next() {
+		var currency model.Currency
+		err = rows.Scan(&currency.ID, &currency.FullName, &currency.Title, &currency.Description, &currency.ADate)
+		if err != nil {
+			return nil, err
+		}
+		currencies = append(currencies, currency)
+	}
+
+	return currencies, nil
 }
