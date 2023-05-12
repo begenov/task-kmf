@@ -1,7 +1,7 @@
 package config
 
 import (
-	"fmt"
+	"encoding/json"
 	"os"
 )
 
@@ -17,6 +17,11 @@ func NewConfig() (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(body)
-	return &Config{}, nil
+	var config Config
+
+	if err = json.Unmarshal(body, &config); err != nil {
+		return nil, err
+	}
+
+	return &config, nil
 }

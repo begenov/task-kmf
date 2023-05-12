@@ -1,8 +1,8 @@
-package mssql
+package db
 
 import "database/sql"
 
-func OpenMSSql(driver string, dsn string) (*sql.DB, error) {
+func OpenDB(driver string, dsn string) (*sql.DB, error) {
 	db, err := sql.Open(driver, dsn)
 	if err != nil {
 		return nil, err
