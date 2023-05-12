@@ -1,6 +1,6 @@
 {
     "database":{
-        "driver":"postgre",
+        "driver":"postgres",
         "dsn":"postgresql://kursUser:kursPswd@localhost:5432/test?sslmode=disable"
     },
     "server": {

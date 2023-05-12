@@ -9,7 +9,7 @@ import (
 )
 
 type CurrencyIR interface {
-	CreateCurrency(ctx context.Context, currency []model.Currency) error
+	CreateCurrency(ctx context.Context, rates model.Rates) error
 }
 
 type Service struct {

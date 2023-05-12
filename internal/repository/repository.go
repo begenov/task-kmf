@@ -9,7 +9,7 @@ import (
 )
 
 type BankDB interface {
-	CreateCurrency(ctx context.Context, currency model.Currency) error
+	CreateCurrency(ctx context.Context, rates model.Rates) error
 	CurrencyByDateAndCode(ctx context.Context, date string, code string) ([]model.Currency, error)
 	CurrencyByDate(ctx context.Context, date string) ([]model.Currency, error)
 }

@@ -1,6 +1,9 @@
 package app
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/begenov/tesk-kmf/internal/config"
 	"github.com/begenov/tesk-kmf/internal/controller"
 	"github.com/begenov/tesk-kmf/internal/repository"
@@ -21,6 +24,7 @@ func NewApplication(cfg *config.Config) *Application {
 func (app *Application) Run() error {
 	db, err := db.OpenDB(app.cfg.Database.Driver, app.cfg.Database.DSN)
 	if err != nil {
+
 		return err
 	}
 
@@ -30,7 +34,7 @@ func (app *Application) Run() error {
 
 	controller := controller.NewContoller(service)
 
-	controller.InitRouter()
+	log.Printf("Starting server in port = %s\n", app.cfg.Server.Port)
 
-	return nil
+	return http.ListenAndServe(app.cfg.Server.Port, controller.InitRouter())
 }

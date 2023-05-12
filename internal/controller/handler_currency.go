@@ -22,7 +22,7 @@ func (c *Controller) saveCurrencyDate(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(fmt.Sprintf(api, date))
 
 	if err != nil {
-		log.Println(err)
+		log.Printf("Error when making a request to the national bank's API: %v", err)
 		http.Error(w, "Error when making a request to the national bank's API", http.StatusInternalServerError)
 		return
 	}
@@ -30,19 +30,19 @@ func (c *Controller) saveCurrencyDate(w http.ResponseWriter, r *http.Request) {
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Println(err)
+		log.Printf("Error reading response body: %v", err)
 		http.Error(w, "Error reading response body", http.StatusInternalServerError)
 		return
 	}
 	var rates model.Rates
 
 	if err = xml.Unmarshal(body, &rates); err != nil {
-		log.Println(err)
+		log.Printf("Error parsing response body: %v", err)
 		http.Error(w, "Error parsing response body", http.StatusInternalServerError)
 		return
 	}
 
-	go c.service.Currency.CreateCurrency(context.Background(), rates.Currency)
+	go c.service.Currency.CreateCurrency(context.Background(), rates)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -51,4 +51,12 @@ func (c *Controller) saveCurrencyDate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *Controller) currencyHandler(w http.ResponseWriter, r *http.Request) {
+	data := mux.Vars(r)["date"]
+	code := mux.Vars(r)["code"]
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	// json.NewEncoder(w).Encode()
+
 }

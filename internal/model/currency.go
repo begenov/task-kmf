@@ -1,11 +1,9 @@
 package model
 
-import "time"
-
 type Currency struct {
-	ID    int       `json:"id"`
-	Title string    `json:"Title"`
-	Code  string    `json:"code"`
-	Value float64   `json:"value"`
-	ADate time.Time `json:"ADATE"`
+	ID          int
+	FullName    string `xml:"fullname"`
+	Title       string `xml:"title"`
+	Description string `xml:"description"`
+	ADate       string
 }
