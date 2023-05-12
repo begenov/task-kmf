@@ -24,7 +24,6 @@ func NewApplication(cfg *config.Config) *Application {
 func (app *Application) Run() error {
 	db, err := db.OpenDB(app.cfg.Database.Driver, app.cfg.Database.DSN)
 	if err != nil {
-
 		return err
 	}
 

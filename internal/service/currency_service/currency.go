@@ -36,7 +36,7 @@ func (service *CurrencyService) CreateCurrency(ctx context.Context, rates model.
 
 	err = service.povider.CreateCurrency(ctx, rates)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("Error while saving currency rates to DB: %v", err)
 		caster <- err
 		return
 
