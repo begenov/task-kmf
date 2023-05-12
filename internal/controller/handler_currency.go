@@ -54,9 +54,23 @@ func (c *Controller) currencyHandler(w http.ResponseWriter, r *http.Request) {
 	data := mux.Vars(r)["date"]
 	code := mux.Vars(r)["code"]
 
+	var currency []model.Currency
+	var err error
+
+	if code != "" {
+		currency, err = c.servicecCurrency.GecCurrencyByCode(context.Background(), data, code)
+	} else {
+		currency, err = c.servicecCurrency.GetCurrency(context.Background(), data)
+	}
+
+	if err != nil {
+		log.Printf("Error getting currency: %v", err)
+		http.Error(w, "Error getting currency", http.StatusInternalServerError)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-
-	// json.NewEncoder(w).Encode()
+	json.NewEncoder(w).Encode(currency)
 
 }

@@ -10,6 +10,8 @@ import (
 
 type CurrencyIR interface {
 	CreateCurrency(ctx context.Context, rates model.Rates) error
+	GetCurrencyByCode(ctx context.Context, date string, code string) ([]model.Currency, error)
+	GetCurrency(ctx context.Context, data string) ([]model.Currency, error)
 }
 
 type Service struct {

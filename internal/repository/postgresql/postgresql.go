@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"time"
 
 	"github.com/begenov/tesk-kmf/internal/model"
 )
@@ -38,10 +39,10 @@ func (db *PostgreSQL) CreateCurrency(ctx context.Context, rates model.Rates) err
 	return nil
 }
 
-func (db *PostgreSQL) CurrencyByDateAndCode(ctx context.Context, date string, code string) ([]model.Currency, error) {
+func (db *PostgreSQL) CurrencyByCode(ctx context.Context, date time.Time, code string) ([]model.Currency, error) {
 	return nil, nil
 }
 
-func (db *PostgreSQL) CurrencyByDate(ctx context.Context, date string) ([]model.Currency, error) {
+func (db *PostgreSQL) CurrencyByDate(ctx context.Context, date time.Time) ([]model.Currency, error) {
 	return nil, nil
 }
